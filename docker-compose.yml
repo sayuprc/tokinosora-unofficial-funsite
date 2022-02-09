@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  wordpress:
+    build: ./infra/wordpress
+    image: tokinosora_wp
+    container_name: tokinosora_wp
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${WP_USER}
+      WORDPRESS_DB_PASSWORD: ${WP_PASSWORD}
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 80:80
+
+  db:
+    build: ./infra/mysql
+    image: tokinosora_db
+    container_name: tokinosora_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - tokinosora_db_store:/var/lib/mysql
+      - ./infra/mysql/initdb.d:/docker-entrypoint-initdb.d
+
+volumes:
+  tokinosora_db_store:
