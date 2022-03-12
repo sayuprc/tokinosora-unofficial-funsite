@@ -11,7 +11,8 @@ services:
       WORDPRESS_DB_USER: ${WP_USER}
       WORDPRESS_DB_PASSWORD: ${WP_PASSWORD}
     volumes:
-      - ./src/wp-content/themes/tokinosora:/var/www/html/wp-content/themes/tokinosora
+      - ./src/wp-content/themes/cocoon:/var/www/html/wp-content/themes/cocoon-master
+      - ./src/wp-content/themes/cocoon-child:/var/www/html/wp-content/themes/cocoon-child-master
     ports:
       - 80:80
 
